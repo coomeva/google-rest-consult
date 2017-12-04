@@ -17,7 +17,7 @@ restService.post('/echo', function(req, res) {
     
     var sum = String(speech);
     
-    callConsultAssociate(id_number).then((resultado) => {
+    callConsultAssociate(sum).then((resultado) => {
          var result = resultado;
     });
    return res.json({
@@ -110,12 +110,12 @@ restService.post('/slack-test', function(req, res) {
 
 
 
-function callConsultAssociate(id_number){
+function callConsultAssociate(sum){
     return new Promise((resolve, reject) => {
        var http = require('http');
         var host = 'ec2-184-73-133-117.compute-1.amazonaws.com';
         var port = '8080';
-        var path = '/consultacedula/services/rest/' + id_number;
+        var path = '/consultacedula/services/rest/' + sum;
         
         console.log('API Request;' + host + port + path);
         
