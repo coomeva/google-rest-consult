@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const http = require('http');
+let http = require('http');
 
 const restService = express();
 
