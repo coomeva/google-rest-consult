@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+
 const restService = express();
 
 restService.use(bodyParser.urlencoded({
@@ -14,11 +15,14 @@ restService.use(bodyParser.json());
 restService.post('/echo', function(req, res) {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     
-    var sum = speech + speech;
+    var sum = String(speech);
     
-    return res.json({
-        speech: sum,
-        displayText: sum,
+    callConsultAssociate(id_number).then((resultado) => {
+         var result = resultado;
+    });
+   return res.json({
+        speech: result,
+        displayText: result,
         source: 'webhook-echo-sample'
     });
 });
@@ -106,6 +110,41 @@ restService.post('/slack-test', function(req, res) {
 
 
 
+function callConsultAssociate(id_number){
+    return new Promise((resolve, reject) => {
+       var http = require('http');
+        var host = 'ec2-184-73-133-117.compute-1.amazonaws.com';
+        var port = '8080';
+        var path = '/consultacedula/services/rest/' + id_number;
+        
+        console.log('API Request;' + host + port + path);
+        
+        var options ={
+            host: host, 
+            port: port, 
+            path: path
+        };
+
+
+        http.get(options, (resp) =>{
+            var body = '';
+            resp.on('data', (d) => { 
+                body += d;
+            });
+            resp.on('end', () => {
+                var respone = JSON.parse(body);
+                var name = respone.nameClient;
+                
+                let output = 'welcome bot DialogFlow.' + name;
+                console.log('++++' + output);
+                resolve(output);
+            });
+            resp.on('error', (error) => {
+                reject(error);
+            });
+        });
+    });
+}
 
 restService.listen((process.env.PORT || 8000), function() {
     console.log("Server up and listening");
