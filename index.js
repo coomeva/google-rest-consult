@@ -15,11 +15,11 @@ restService.use(bodyParser.json());
 restService.post('/echo', function(req, res) {
     
    var number = req.body.result.parameters.echoText;
-     var resultado = number + number;
+     
     
     return res.json({
-        speech: resultado,
-        displayText: resultado,
+        speech: number,
+        displayText: number,
         source: 'webhook-echo-sample'
         });
     
