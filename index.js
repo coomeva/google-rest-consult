@@ -15,14 +15,14 @@ restService.use(bodyParser.json());
 restService.post('/echo', function(req, res) {
     
    var number = req.body.result.parameters.echoText;
+     var resultado = number + number;
     
-    callConsultAssociate(number).then((resultado) => {
     return res.json({
         speech: resultado,
         displayText: resultado,
         source: 'webhook-echo-sample'
         });
-    });
+    
 });
 
 restService.post('/music', function(req, res) {
