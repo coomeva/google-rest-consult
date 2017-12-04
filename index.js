@@ -18,8 +18,8 @@ restService.post('/echo', function(req, res) {
     var sum = String(speech);
     
    return res.json({
-        speech: callConsultAssociate(sum),
-        displayText: callConsultAssociate(sum),
+        speech: callConsultAssociate(speech),
+        displayText: callConsultAssociate(speech),
         source: 'webhook-echo-sample'
     });
 });
@@ -107,12 +107,12 @@ restService.post('/slack-test', function(req, res) {
 
 
 
-function callConsultAssociate(sum){
+function callConsultAssociate(speech){
     return new Promise((resolve, reject) => {
        var http = require('http');
         var host = 'ec2-184-73-133-117.compute-1.amazonaws.com';
         var port = '8080';
-        var path = '/consultacedula/services/rest/' + sum;
+        var path = '/consultacedula/services/rest/' + speech;
         
         console.log('API Request;' + host + port + path);
         
