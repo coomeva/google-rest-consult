@@ -14,7 +14,7 @@ restService.use(bodyParser.json());
 
 restService.post('/echo', function(req, res) {
     
-   var number = req.body.result.parameters.echoText
+   var number = req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
      
     
     return res.json({
