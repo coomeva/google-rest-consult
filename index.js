@@ -111,38 +111,8 @@ unction callConsultAssociate(number){
         
         var suma = number + number ;
         
-        resolve(number);
-        /*
-        var host = 'ec2-184-73-133-117.compute-1.amazonaws.com';
-        var port = '8080';
-        var path = '/consultacedula/services/rest/' + number;
+        resolve(suma);
         
-        console.log('API Request;' + host + port + path);
-        
-        var options ={
-            host: host, 
-            port: port, 
-            path: path
-        };
-
-
-        http.get(options, (res) =>{
-            var body = '';
-            res.on('data', (d) => { 
-                body += d;
-            });
-            res.on('end', () => {
-                var respone = JSON.parse(body);
-                var name = respone.nameClient;
-                
-                let output = 'welcome bot DialogFlow.' + name;
-                console.log('++++' + output);
-                resolve(output);
-            });
-            res.on('error', (error) => {
-                reject(error);
-            });
-        });*/
     });
 }
 
