@@ -14,7 +14,7 @@ restService.use(bodyParser.json());
 
 restService.post('/echo', function(req, res) {
     
-   var number = req.body.result.parameters.echoText;
+   var number = req.body.result.parameters.echoText
      
     
     return res.json({
