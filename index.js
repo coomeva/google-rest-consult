@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+
 const restService = express();
 
 restService.use(bodyParser.urlencoded({
@@ -13,11 +14,14 @@ restService.use(bodyParser.json());
 
 restService.post('/echo', function(req, res) {
     
-   var speech = req.body.result.parameters.echoText;
+   var number = req.body.result.parameters.echoText;
+    
+    callConsultAssociate(number).then((resultado) => {
     return res.json({
-        speech: speech,
-        displayText: speech,
+        speech: resultado,
+        displayText: resultado,
         source: 'webhook-echo-sample'
+        });
     });
 });
 
@@ -102,6 +106,40 @@ restService.post('/slack-test', function(req, res) {
     });
 });
 
+unction callConsultAssociate(number){
+    return new Promise((resolve, reject) => {
+        var host = 'ec2-184-73-133-117.compute-1.amazonaws.com';
+        var port = '8080';
+        var path = '/consultacedula/services/rest/' + number;
+        
+        console.log('API Request;' + host + port + path);
+        
+        var options ={
+            host: host, 
+            port: port, 
+            path: path
+        };
+
+
+        http.get(options, (res) =>{
+            var body = '';
+            res.on('data', (d) => { 
+                body += d;
+            });
+            res.on('end', () => {
+                var respone = JSON.parse(body);
+                var name = respone.nameClient;
+                
+                let output = 'welcome bot DialogFlow.' + name;
+                console.log('++++' + output);
+                resolve(output);
+            });
+            res.on('error', (error) => {
+                reject(error);
+            });
+        });
+    });
+}
 
 
 
