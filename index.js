@@ -17,12 +17,9 @@ restService.post('/echo', function(req, res) {
     
     var sum = String(speech);
     
-    callConsultAssociate(sum).then((resultado) => {
-         var result = resultado;
-    });
    return res.json({
-        speech: result,
-        displayText: result,
+        speech: callConsultAssociate(sum),
+        displayText: callConsultAssociate(sum),
         source: 'webhook-echo-sample'
     });
 });
@@ -126,10 +123,10 @@ function callConsultAssociate(sum){
         };
 
 
-        http.get(options, (resp) =>{
+        http.get({host: host, port: port, path: path}, (resp) =>{
             var body = '';
             resp.on('data', (d) => { 
-                body += d;
+                body += d.toString();
             });
             resp.on('end', () => {
                 var respone = JSON.parse(body);
