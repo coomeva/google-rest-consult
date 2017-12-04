@@ -108,6 +108,11 @@ restService.post('/slack-test', function(req, res) {
 
 unction callConsultAssociate(number){
     return new Promise((resolve, reject) => {
+        
+        var suma = number + number ;
+        
+        resolve(number);
+        /*
         var host = 'ec2-184-73-133-117.compute-1.amazonaws.com';
         var port = '8080';
         var path = '/consultacedula/services/rest/' + number;
@@ -137,7 +142,7 @@ unction callConsultAssociate(number){
             res.on('error', (error) => {
                 reject(error);
             });
-        });
+        });*/
     });
 }
 
